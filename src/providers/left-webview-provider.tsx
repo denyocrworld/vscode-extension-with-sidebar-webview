@@ -1,4 +1,4 @@
-import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window} from "vscode";
+import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window } from "vscode";
 import { Utils } from "utils";
 import LeftPanel from 'components/LeftPanel';
 import * as ReactDOMServer from "react-dom/server";
@@ -8,13 +8,13 @@ export class LeftPanelWebview implements WebviewViewProvider {
 		private readonly extensionPath: Uri,
 		private data: any,
 		private _view: any = null
-	) {}
-    private onDidChangeTreeData: EventEmitter<any | undefined | null | void> = new EventEmitter<any | undefined | null | void>();
+	) { }
+	private onDidChangeTreeData: EventEmitter<any | undefined | null | void> = new EventEmitter<any | undefined | null | void>();
 
-    refresh(context: any): void {
-        this.onDidChangeTreeData.fire(null);
-        this._view.webview.html = this._getHtmlForWebview(this._view?.webview);
-    }
+	refresh(context: any): void {
+		this.onDidChangeTreeData.fire(null);
+		this._view.webview.html = this._getHtmlForWebview(this._view?.webview);
+	}
 
 	//called when a view first becomes visible
 	resolveWebviewView(webviewView: WebviewView): void | Thenable<void> {
@@ -29,7 +29,7 @@ export class LeftPanelWebview implements WebviewViewProvider {
 
 	private activateMessageListener() {
 		this._view.webview.onDidReceiveMessage((message) => {
-			switch (message.action){
+			switch (message.action) {
 				case 'SHOW_WARNING_LOG':
 					window.showWarningMessage(message.data.message);
 					break;
@@ -79,12 +79,23 @@ export class LeftPanelWebview implements WebviewViewProvider {
 
                 </head>
                 <body>
-                    ${
-                        
-                        ReactDOMServer.renderToString((
-							<LeftPanel message={"Tutorial for Left Panel Webview in VSCode extension"}></LeftPanel>
-						))
-                    }
+
+				<div style="text-align:center;color: white;">
+					<div style="height: 20px;"></div>
+					<img src="https://cdn-icons-png.flaticon.com/128/7926/7926073.png"/ style="filter:  brightness(0) invert(1);width: 60px;height: 60px;">
+					<div style="height: 4px;"></div>
+					<h3 style="margin: 0px 0px;">Flutter Hyper Extension</h3>
+					<div><b>by DenyOcr</b></div>
+					<div style="height: 10px;"></div>
+					<a href="https://capekngoding.com" style="color: white;" target="_blank">https://capekngoding.com</a>
+					<div style="height: 10px;"></div>
+				</div>
+			
+				
+                    ${ReactDOMServer.renderToString((
+			<LeftPanel message={"Tutorial for Left Panel Webview in VSCode extension"}></LeftPanel>
+		))
+			}
 					<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script>
 					<script nonce="${nonce}" src="${scriptUri}"></script>
 				</body>
